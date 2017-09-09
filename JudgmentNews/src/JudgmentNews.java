@@ -18,15 +18,15 @@ public class JudgmentNews {
 		for (int i = 0; i < splitedWordCount.length; i += 2) {// ´Ü¾î ´ÜÀ§ interval
 			// ±àÁ¤ »çÀü Å½»ö
 			for (int j = 0; j < goodWords.length; j++) {
-				if (splitedWordCount[i].equals(goodWords[j])) {
-					good += Float.parseFloat(splitedWordCount[i + 1]);
+				if (splitedWordCount[i].substring(1, splitedWordCount[i].length()).contains(goodWords[j])) {
+					good += Character.getNumericValue(splitedWordCount[i + 1].charAt(0));
 					break;
 				}
 			}
 			// ºÎÁ¤ »çÀü Å½»ö
 			for (int j = 0; j < badWords.length; j++) {
-				if (splitedWordCount[i].equals(badWords[j])) {
-					bad += Float.parseFloat(splitedWordCount[i + 1]);
+				if (splitedWordCount[i].substring(1, splitedWordCount[i].length()).contains(badWords[j])) {
+					bad += Character.getNumericValue(splitedWordCount[i + 1].charAt(0));
 					break;
 				}
 			}
@@ -54,10 +54,11 @@ public class JudgmentNews {
 		int neutralCnt = 0;
 		BufferedReader in = null;
 		try {
-			in = new BufferedReader(new FileReader("D:/±¹Åä±³Åë ÇØÄ¿Åæ/JudgmentNews/JudgmentNews/result.csv"));
+			in = new BufferedReader(new FileReader("D:/0.swStudy/houSight/data/b_yongsan_20160101-20160131.csv"));
 			String data = null;
 			while ((data = in.readLine()) != null) {
 				// System.out.println(data);
+				data = data.substring(1, data.length()-2);
 				result = judgment(data);
 				if (result == 1) {
 					System.out.println("±àÁ¤");
